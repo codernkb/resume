@@ -21,6 +21,7 @@
             width: 100%;
             max-width: 1000px;
             display: flex;
+            flex-direction: row;
             background-color: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -123,6 +124,13 @@
             margin-right: 15px;
             font-size: 1.2em;
         }
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+        }
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
         .sidebar-title {
             font-size: 1.5em;
             margin-bottom: 20px;
@@ -173,6 +181,31 @@
         .language-level {
             font-style: italic;
             font-size: 0.9em;
+        }
+
+        /* Mobile Responsiveness */
+        @media screen and (max-width: 768px) {
+            .resume-container {
+                flex-direction: column-reverse;
+            }
+            .main-content, .sidebar {
+                width: 100%;
+            }
+            .company {
+                flex-direction: column;
+            }
+            .date {
+                margin-top: 5px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .header h2 {
+                font-size: 1.1em;
+            }
+            body {
+                padding: 10px;
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -280,23 +313,23 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <span>nkb.coder@gmail.com</span>
+                    <a href="mailto:nkb.coder@gmail.com">nkb.coder@gmail.com</a>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <span>7988786696</span>
+                    <a href="tel:+917988786696">7988786696</a>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>India</span>
+                    <span>Gurugram, India</span>
                 </div>
                 <div class="contact-item">
                     <i class="fab fa-linkedin"></i>
-                    <span>linkedin.com/in/codernkb</span>
+                    <a href="https://www.linkedin.com/in/codernkb/" target="_blank">LinkedIn Profile</a>
                 </div>
                 <div class="contact-item">
-                    <i class="fas fa-code"></i>
-                    <span>codernkb</span>
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/codernkb/" target="_blank">GitHub Profile</a>
                 </div>
             </div>
 
