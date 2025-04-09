@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neeraj Kumar Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .resume-container {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            width: 65%;
+            padding: 30px;
+        }
+        .sidebar {
+            width: 35%;
+            background-color: #D5A76E;
+            color: white;
+            padding: 30px;
+        }
+        .header h1 {
+            color: #D5A76E;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        .header h2 {
+            color: #444;
+            font-size: 1.3em;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+        .profile-summary {
+            margin-bottom: 15px;
+            line-height: 1.5;
+            color: #333;
+        }
+        .profile-summary p {
+            margin-bottom: 10px;
+        }
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin: 25px 0 15px;
+            color: #D5A76E;
+            font-size: 1.4em;
+        }
+        .section-title i {
+            margin-right: 10px;
+            background-color: #D5A76E;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .job {
+            margin-bottom: 25px;
+        }
+        .job-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .company {
+            color: #333;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .company-name {
+            font-style: italic;
+        }
+        .date {
+            color: #666;
+        }
+        .project-title {
+            font-weight: bold;
+        }
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        ul li {
+            margin-bottom: 7px;
+            line-height: 1.4;
+        }
+        .nested-list {
+            margin-top: 5px;
+            margin-left: 15px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            color: #D5A76E;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        .sidebar-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar-title i {
+            margin-right: 10px;
+            background-color: white;
+            color: #D5A76E;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .skill-tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 7px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-right: 8px;
+            margin-bottom: 10px;
+        }
+        .certificates-list div {
+            margin-bottom: 15px;
+        }
+        .certificates-list div a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .language {
+            margin-bottom: 15px;
+        }
+        .language-name {
+            font-weight: bold;
+        }
+        .language-level {
+            font-style: italic;
+            font-size: 0.9em;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="resume-container">
+        <div class="main-content">
+            <div class="header">
+                <h1>Neeraj Kumar</h1>
+                <h2>Full-Stack Developer</h2>
+            </div>
+
+            <div class="profile-summary">
+                <p>Experienced Full-Stack Developer with a strong background in developing and deploying scalable web applications. Proficient in MERN stack technologies (MongoDB, Express.js, React.js, Node.js) and well-versed in creating robust APIs and dynamic user interfaces. Successfully delivered end-to-end solutions, from conceptualizing products to backend development and API integrations. Known for developing complex logistics platforms and third-party integrations, including carbon emission calculations and duty management systems. A proactive problem-solver with a keen interest in web development, committed to delivering high-quality software solutions.</p>
+            </div>
+
+            <div class="section-title">
+                <i class="fas fa-briefcase"></i>
+                <h3>WORK EXPERIENCE</h3>
+            </div>
+
+            <div class="job">
+                <div class="job-title">Software Developer</div>
+                <div class="company">
+                    <span class="company-name">Aristia AI, Gurugram</span>
+                    <span class="date">November 2024 – Present</span>
+                </div>
+                <ul>
+                    <li><span class="project-title">Cognilink Website Development</span> - Solely developed both the front-end and back-end of the Cognilink platform, a data analytics tool where users can upload documents, audio files, images, and web URLs. The platform stores these in a MySQL database and utilizes Azure Vector DB to perform searches and answer queries based on the stored data using LangChain and LLM. This solution is aimed at enhancing data analytics capabilities for businesses.</li>
+                    <li><span class="project-title">Dailymed Chatbot Development</span> - Built the Dailymed chatbot from scratch, including both the front-end (React.js) and back-end (Node.js). The bot scrapes data from the Dailymed website and stores it in a MySQL database, using LLM to answer user queries based solely on Dailymed data. This project improves accessibility to medical information and automates the information retrieval process.</li>
+                    <li><span class="project-title">Skills</span> – React.js, Node.js, LangChain, LLM, MySQL, Azure Vector DB, Full-Stack Development, Data Analytics</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-title">Software Developer</div>
+                <div class="company">
+                    <span class="company-name">AAA2 Innovate Pvt. Ltd, Noida</span>
+                    <span class="date">July 2023 – August 2024</span>
+                </div>
+                <ul>
+                    <li>AAA2 Innovate Pvt. Ltd is the Parent company of Zipaworld. AAA2 handles all the software projects while Zipaworld is a multimodel digital logistics and freight forwarding product that offers all logistics services (Air, Ocean, Courier) from a single window.</li>
+                    <li><span class="project-title">Main Product Development</span> (<a href="https://zipaworld.com/" target="_blank">zipaworld.com</a>) - Solely developed a cutting-edge multimodal logistics platform from scratch in React.js Functional components with features for:
+                        <ul class="nested-list">
+                            <li>Crate queries and booking creation</li>
+                            <li>Tracking integration</li>
+                            <li>Automatic checklist generation</li>
+                            <li>Logistics chatbot (EximGPT)</li>
+                            <li>Coupon systems and invoicing</li>
+                        </ul>
+                    </li>
+                    <li><span class="project-title">Backend Development</span> (Node.js, Express, MongoDB):
+                        <ul class="nested-list">
+                            <li>Developed API for EximGPT</li>
+                            <li>API of Zipaworld services for integration in ICICI website Logistics services section</li>
+                            <li>Checklist maker API and Store Data</li>
+                            <li>Carbon emission calculation API with self-developed formula using data from Aircrafts used and Airlines website</li>
+                            <li>Integration with Bludart API</li>
+                            <li>Tracking API using Parcel APP</li>
+                            <li>Duty Calculation for EximGPT of USA (from creating data to calculation based on HSN codes)</li>
+                            <li>Complete code documentation for developers of all Air, Ocean, Road, and Courier backend APIs</li>
+                        </ul>
+                    </li>
+                    <li><span class="project-title">Admin Side Development</span> - Developed the admin panel for Zipaworld, implementing essential backend services. Integrated Third Party APIs including Ulip, GST, Aadhar, Shipments Tracking, and Containers Tracking Features.</li>
+                    <li><span class="project-title">Third Party Project</span> - Skincraft 2D Almirah Decor (<a href="https://skincraft-decor.netlify.app/" target="_blank">skincraft2d Almirah Decor</a>)
+                        <ul class="nested-list">
+                            <li>Solely developed from scratch both frontend and backend in MERN stack</li>
+                            <li>Features: Login, signup, create new project, save project, admin dashboard, reload and update project</li>
+                            <li>Image Decoration on Almirah doors: uploading, cutting, and storing images</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>EDUCATION AND TRAINING</h3>
+            </div>
+
+            <div>
+                <div class="job-title">MERN Fullstack Course</div>
+                <div class="company">
+                    <span class="company-name">Croma Campus Pvt. Ltd, Noida</span>
+                    <span class="date">December 2022 – July 2023</span>
+                </div>
+                <ul>
+                    <li><span class="project-title">Projects Developed</span>
+                        <ul class="nested-list">
+                            <li><a href="https://organicfoodwebsitebynkb.netlify.app/" target="_blank">Organic food website</a> using Bootstrap</li>
+                            <li><a href="https://formvalidationbynkb.netlify.app/" target="_blank">Form Validation</a> in JavaScript</li>
+                            <li><a href="https://nkbfirstproject.netlify.app/" target="_blank">Single page simple Website</a> using HTML and CSS only</li>
+                            <li><a href="https://blackjackgamebynkb.vercel.app/" target="_blank">Blackjack game</a> using JavaScript</li>
+                            <li><a href="https://bmicalculatorbynkb.vercel.app/" target="_blank">BMI calculator</a> in JavaScript</li>
+                            <li><a href="https://counterappbynkb.vercel.app/" target="_blank">Counter App</a> in JavaScript</li>
+                            <li><a href="https://rockybhaibirthdaygift.vercel.app/" target="_blank">Birthday Celebration website</a> using HTML and CSS only</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p style="margin-top: 15px;"><span class="project-title">Graduation</span> - BTech from CDLU</p>
+                <p style="margin-top: 5px;"><span class="project-title">10th and 12th</span> - Army Public School</p>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>nkb.coder@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>7988786696</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>India</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>linkedin.com/in/codernkb</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-code"></i>
+                    <span>codernkb</span>
+                </div>
+            </div>
+
+            <div class="sidebar-title">
+                <i class="fas fa-tools"></i>
+                <h3>AREAS OF EXPERTISE</h3>
+            </div>
+
+            <div>
+                <div class="skill-tag">React.js</div>
+                <div class="skill-tag">Node.js</div>
+                <div class="skill-tag">Express.js</div>
+                <div class="skill-tag">MongoDB</div>
+                <div class="skill-tag">REST API</div>
+                <div class="skill-tag">Redux</div>
+                <div class="skill-tag">HTML5</div>
+                <div class="skill-tag">CSS3</div>
+                <div class="skill-tag">JavaScript</div>
+                <div class="skill-tag">Bootstrap</div>
+                <div class="skill-tag">MySQL</div>
+                <div class="skill-tag">Azure Vector DB</div>
+                <div class="skill-tag">LangChain</div>
+                <div class="skill-tag">LLM</div>
+            </div>
+
+            <div class="sidebar-title">
+                <i class="fas fa-cogs"></i>
+                <h3>TECHNICAL SKILLS</h3>
+            </div>
+
+            <div>
+                <div class="skill-tag">Full-stack Development</div>
+                <div class="skill-tag">Web Applications</div>
+                <div class="skill-tag">Backend Development</div>
+                <div class="skill-tag">Postman</div>
+                <div class="skill-tag">Swagger UI</div>
+                <div class="skill-tag">LaTeX</div>
+                <div class="skill-tag">VS Code</div>
+                <div class="skill-tag">GitHub</div>
+                <div class="skill-tag">GitLab</div>
+            </div>
+
+            <div class="sidebar-title">
+                <i class="fas fa-project-diagram"></i>
+                <h3>INTERESTS</h3>
+            </div>
+
+            <div>
+                <div class="skill-tag">Web Development</div>
+                <div class="skill-tag">API Integration</div>
+                <div class="skill-tag">Cloud Solutions</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
