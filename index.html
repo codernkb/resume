@@ -828,37 +828,78 @@ async function savePDF() {
         bar.style.width = bar.getAttribute('data-width') + '%';
     });
 
-    /* Let the DOM repaint with overrides applied */
-    await new Promise(r => setTimeout(r, 120));
+    /* Clone resume into a fixed-size offscreen wrapper so capture is never viewport-clipped */
+    const target = document.querySelector('.resume-container');
+    const targetW = target.scrollWidth;
+    const targetH = target.scrollHeight;
+
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `
+        position: fixed;
+        top: 0; left: 0;
+        width: ${targetW}px;
+        min-height: ${targetH}px;
+        background: #ffffff;
+        z-index: 99999;
+        overflow: visible;
+        padding: 0; margin: 0;
+    `;
+    const clone = target.cloneNode(true);
+    clone.style.cssText = `
+        width: ${targetW}px !important;
+        max-width: none !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    `;
+    /* Force all jobs/reveals visible in clone */
+    clone.querySelectorAll('.job, .edu-block, .reveal').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.style.animation = 'none';
+    });
+    /* Force skill bars in clone */
+    clone.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.transition = 'none';
+        bar.style.width = bar.getAttribute('data-width') + '%';
+    });
+
+    wrapper.appendChild(clone);
+    document.body.appendChild(wrapper);
+
+    /* Let the DOM paint the clone */
+    await new Promise(r => setTimeout(r, 200));
 
     try {
-        const target = document.querySelector('.resume-container');
-        const rect = target.getBoundingClientRect();
-
-        const canvas = await html2canvas(target, {
+        const canvas = await html2canvas(wrapper, {
             scale: 3,
             useCORS: true,
             allowTaint: true,
             logging: false,
             backgroundColor: '#ffffff',
-            width: rect.width,
-            height: rect.height,
-            windowWidth: document.documentElement.scrollWidth,
-            windowHeight: document.documentElement.scrollHeight,
-            x: rect.left + window.scrollX,
-            y: rect.top + window.scrollY
+            width: targetW,
+            height: wrapper.scrollHeight,
+            windowWidth: targetW,
+            windowHeight: wrapper.scrollHeight,
+            x: 0,
+            y: 0
         });
+
+        document.body.removeChild(wrapper);
 
         const { jsPDF } = window.jspdf;
 
-        /* Use the actual resume aspect ratio — not forced A4 which causes blank pages */
+        /* Custom page size exactly matching the resume — no blank pages, no cropping */
         const pxW = canvas.width;
         const pxH = canvas.height;
-        const mmW = 210; /* A4 width */
+        const mmW = 210;
         const mmH = Math.round((pxH / pxW) * mmW);
 
         const pdf = new jsPDF({
-            orientation: mmH > mmW ? 'portrait' : 'landscape',
+            orientation: 'portrait',
             unit: 'mm',
             format: [mmW, mmH]
         });
@@ -868,6 +909,8 @@ async function savePDF() {
         pdf.save('Neeraj_Kumar_Resume.pdf');
 
     } catch (err) {
+        const w = document.querySelector('[style*="z-index: 99999"]');
+        if (w) document.body.removeChild(w);
         alert('Could not generate PDF. Please try again.');
         console.error(err);
     } finally {
