@@ -4,524 +4,763 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neeraj Kumar CV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+        :root {
+            --gold: #D5A76E;
+            --gold-dark: #b8834a;
+            --gold-light: #e8c898;
+            --gold-glow: rgba(213, 167, 110, 0.25);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            background-color: #f9f9f9;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
+            background: linear-gradient(135deg, #f0ece4 0%, #f9f6f0 50%, #ede8df 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding: 40px 20px;
         }
+
+        /* ── Floating Nav ── */
+        .floating-nav {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(213,167,110,0.35);
+            border: 2px solid var(--gold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .nav-dot:hover, .nav-dot.active {
+            background: var(--gold);
+            transform: scale(1.4);
+        }
+        .nav-dot .nav-label {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gold);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .nav-dot:hover .nav-label { opacity: 1; }
+
+        /* ── Resume Container ── */
         .resume-container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1020px;
+            margin: 0 auto;
             display: flex;
-            flex-direction: row;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(213,167,110,0.15);
             opacity: 0;
-            animation: fadeIn 0.8s forwards;
+            transform: translateY(40px);
+            animation: pageReveal 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes pageReveal {
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        .main-content {
-            width: 65%;
-            padding: 30px;
-        }
-        .sidebar {
-            width: 35%;
-            background-color: #D5A76E;
-            color: white;
-            padding: 30px;
-        }
+
+        /* ── Main Content ── */
+        .main-content { width: 63%; padding: 40px 35px; }
+
+        /* ── Header ── */
+        .header { margin-bottom: 20px; }
         .header h1 {
-            color: #D5A76E;
-            font-size: 2.5em;
-            margin-bottom: 5px;
-            position: relative;
+            font-size: 2.8em;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: inline-block;
+            position: relative;
         }
-        
         .header h1::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 3px;
-            bottom: 0;
-            left: 0;
-            background-color: #D5A76E;
-            transition: width 0.5s ease;
+            bottom: -4px; left: 0;
+            width: 0; height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            border-radius: 2px;
+            animation: underlineSlide 1.2s 0.6s ease forwards;
         }
-        
-        .header h1:hover::after {
-            width: 100%;
-        }
-        
-        .header h2 {
-            color: #444;
-            font-size: 1.3em;
-            font-weight: normal;
-            margin-bottom: 20px;
-            transition: color 0.3s ease;
-        }
-        
-        .header h2:hover {
-            color: #D5A76E;
-        }
-        
-        .profile-summary {
-            margin-bottom: 15px;
-            line-height: 1.5;
-            color: #333;
-            border-left: 0 solid #D5A76E;
-            padding-left: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .profile-summary:hover {
-            border-left: 4px solid #D5A76E;
-            padding-left: 15px;
-        }
-        
-        .profile-summary p {
-            margin-bottom: 10px;
-        }
-        .section-title {
-            display: flex;
-            align-items: center;
-            margin: 25px 0 15px;
-            color: #D5A76E;
-            font-size: 1.4em;
-        }
-        .section-title i {
-            margin-right: 10px;
-            background-color: #D5A76E;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        
-        .section-title:hover i {
-            transform: rotate(360deg);
-            background-color: #c2915a;
-        }
-        
-        .job {
-            margin-bottom: 25px;
-            transition: transform 0.3s ease;
-        }
-        
-        .job:hover {
-            transform: translateX(5px);
-        }
-        
-        .job-title {
-            font-weight: bold;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-        .company {
-            color: #333;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .company-name {
-            font-style: italic;
-        }
-        .date {
-            color: #666;
-        }
-        .project-title {
-            font-weight: bold;
-        }
-        ul {
-            padding-left: 20px;
-            margin-top: 10px;
-        }
-        ul li {
-            margin-bottom: 7px;
-            line-height: 1.4;
-            transition: transform 0.2s ease;
-        }
-        
-        ul li:hover {
-            transform: translateX(3px);
-        }
-        
-        .nested-list {
-            margin-top: 5px;
-            margin-left: 15px;
-        }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            transition: transform 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            transform: translateX(5px);
-        }
-        
-        .contact-item i {
-            width: 40px;
-            height: 40px;
-            background-color: white;
-            color: #D5A76E;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-size: 1.2em;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        
-        .contact-item:hover i {
-            transform: scale(1.1);
-            background-color: #f5f5f5;
-        }
-        
-        .contact-item a {
-            color: white;
-            text-decoration: none;
-            position: relative;
-        }
-        
-        .contact-item a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: 0;
-            left: 0;
-            background-color: white;
-            transition: width 0.3s ease;
-        }
+        @keyframes underlineSlide { to { width: 100%; } }
 
-        .contact-item a:hover {
-            color: white;
+        .header h2 {
+            color: #555;
+            font-size: 1.2em;
+            font-weight: 400;
+            margin-top: 6px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.95em;
+            overflow: hidden;
+            white-space: nowrap;
         }
-        
-        .contact-item a:hover::after {
-            width: 100%; 
-        }
-        
-        .sidebar-title {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            margin-top: 30px;
-            display: flex;
-            align-items: center;
-        }
-        .sidebar-title i {
-            margin-right: 10px;
-            background-color: white;
-            color: #D5A76E;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.4s ease;
-        }
-        
-        .sidebar-title:hover i {
-            transform: rotate(360deg);
-        }
-        
-        .skill-tag {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 7px 15px;
-            border-radius: 20px;
+        /* Typing cursor blink */
+        .cursor {
             display: inline-block;
-            margin-right: 8px;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
+            width: 2px; height: 1em;
+            background: var(--gold);
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* ── Profile Summary ── */
+        .profile-summary {
+            background: linear-gradient(135deg, #fdf8f2, #fdf5ec);
+            border-left: 4px solid var(--gold);
+            border-radius: 0 10px 10px 0;
+            padding: 16px 18px;
+            margin-bottom: 8px;
+            color: #444;
+            line-height: 1.65;
+            font-size: 0.93em;
             position: relative;
             overflow: hidden;
         }
-        
-        .skill-tag:hover {
-            background-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-3px) rotate(1deg);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            animation: shake 0.5s ease-in-out;
-        }
-        
-        @keyframes shake {
-            0% { transform: translateY(-3px) rotate(0deg); }
-            25% { transform: translateY(-3px) rotate(1deg); }
-            50% { transform: translateY(-3px) rotate(0deg); }
-            75% { transform: translateY(-3px) rotate(-1deg); }
-            100% { transform: translateY(-3px) rotate(0deg); }
-        }
-        
-        .certificates-list div {
-            margin-bottom: 15px;
-        }
-        .certificates-list div a {
-            color: white;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        a {
-            color: #0066cc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            text-decoration: underline;
-            color: #D5A76E;
-        }
-        .language {
-            margin-bottom: 15px;
-        }
-        .language-name {
-            font-weight: bold;
-        }
-        .language-level {
-            font-style: italic;
-            font-size: 0.9em;
+        .profile-summary::before {
+            content: '\201C';
+            position: absolute;
+            top: -10px; left: 10px;
+            font-size: 80px;
+            color: var(--gold);
+            opacity: 0.12;
+            font-family: Georgia, serif;
+            line-height: 1;
         }
 
-        /* Mobile Responsiveness */
-        @media screen and (max-width: 768px) {
-            .resume-container {
-                flex-direction: column-reverse;
-            }
-            .main-content, .sidebar {
-                width: 100%;
-            }
-            .company {
-                flex-direction: column;
-            }
-            .date {
-                margin-top: 5px;
-            }
-            .header h1 {
-                font-size: 2em;
-            }
-            .header h2 {
-                font-size: 1.1em;
-            }
-            body {
-                padding: 10px;
-            }
-            .profile-summary:hover {
-                padding-left: 10px;
-            }
+        /* ── Section Titles ── */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 28px 0 16px;
+            color: var(--gold-dark);
+        }
+        .section-title i {
+            background: var(--gold);
+            color: white;
+            width: 34px; height: 34px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+            flex-shrink: 0;
+        }
+        .section-title:hover i {
+            transform: rotate(360deg) scale(1.1);
+            background: var(--gold-dark);
+        }
+        .section-title h3 {
+            font-size: 1.1em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--gold-light), transparent);
+        }
+
+        /* ── Job Cards ── */
+        .job {
+            margin-bottom: 22px;
+            padding: 18px 20px;
+            border-radius: 12px;
+            background: #fafafa;
+            border: 1px solid #f0ece4;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        .job.visible {
+            animation: slideInLeft 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+        }
+        @keyframes slideInLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .job::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--gold), var(--gold-light));
+            border-radius: 4px 0 0 4px;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.4s ease;
+        }
+        .job:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(213,167,110,0.18); border-color: var(--gold-light); }
+        .job:hover::before { transform: scaleY(1); }
+
+        .job-title {
+            font-weight: 700;
+            font-size: 1.05em;
+            color: #222;
+            margin-bottom: 4px;
+        }
+        .company {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .company-name {
+            font-style: italic;
+            color: var(--gold-dark);
+            font-size: 0.92em;
+            font-weight: 600;
+        }
+        .date {
+            font-size: 0.8em;
+            color: white;
+            background: var(--gold);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .date.current {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            animation: pulse-green 2s ease-in-out infinite;
+        }
+        @keyframes pulse-green {
+            0%,100% { box-shadow: 0 0 0 0 rgba(46,204,113,0.4); }
+            50% { box-shadow: 0 0 0 6px rgba(46,204,113,0); }
+        }
+        .project-title { font-weight: 700; color: var(--gold-dark); }
+        ul { padding-left: 18px; margin-top: 8px; }
+        ul li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+            color: #444;
+            font-size: 0.9em;
+            transition: transform 0.2s ease, color 0.2s;
+        }
+        ul li:hover { transform: translateX(4px); color: #222; }
+        .nested-list { margin-top: 5px; margin-left: 12px; }
+
+        /* ── Education ── */
+        .edu-block {
+            padding: 16px 20px;
+            border-radius: 12px;
+            background: #fafafa;
+            border: 1px solid #f0ece4;
+            opacity: 0;
+        }
+        .edu-block.visible {
+            animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        a { color: var(--gold-dark); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--gold); text-decoration: underline; }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 37%;
+            background: linear-gradient(160deg, #D5A76E 0%, #c2915a 60%, #b07d48 100%);
+            color: white;
+            padding: 35px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.07);
+        }
+        .sidebar::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: -60px;
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* ── Contact Items ── */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-item:hover { transform: translateX(6px); }
+        .contact-item i {
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+            transition: background 0.3s, transform 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .contact-item:hover i { background: rgba(255,255,255,0.35); transform: rotate(10deg) scale(1.1); }
+        .contact-item a { color: white; font-size: 0.88em; }
+        .contact-item span { color: rgba(255,255,255,0.9); font-size: 0.88em; }
+
+        /* ── Sidebar Titles ── */
+        .sidebar-title {
+            font-size: 1em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin: 28px 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .sidebar-title i {
+            background: rgba(255,255,255,0.25);
+            color: white;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px;
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .sidebar-title:hover i { transform: rotate(360deg); }
+        .sidebar-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* ── Skill Tags ── */
+        .skills-wrap { position: relative; z-index: 1; }
+        .skill-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.18);
+            color: white;
+            padding: 5px 13px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            margin: 0 6px 8px 0;
+            border: 1px solid rgba(255,255,255,0.25);
+            cursor: default;
+            transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+            backdrop-filter: blur(4px);
+        }
+        .skill-tag:hover {
+            background: rgba(255,255,255,0.38);
+            transform: translateY(-4px) scale(1.06);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        /* ── Skill Bars ── */
+        .skill-bar-wrap { position: relative; z-index: 1; }
+        .skill-bar-item { margin-bottom: 14px; }
+        .skill-bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82em;
+            margin-bottom: 5px;
+            color: rgba(255,255,255,0.9);
+        }
+        .skill-bar-track {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            height: 6px;
+            overflow: hidden;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.9));
+            width: 0;
+            transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
+        }
+
+        /* ── Scroll Reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Print Button ── */
+        .print-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 18px rgba(213,167,110,0.5);
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+        .print-btn:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(213,167,110,0.6); }
+
+        /* ── Progress Indicator ── */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+            width: 0%;
+            z-index: 300;
+            transition: width 0.1s linear;
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .resume-container { flex-direction: column-reverse; }
+            .main-content, .sidebar { width: 100%; }
+            .company { flex-direction: column; align-items: flex-start; }
+            .floating-nav { display: none; }
+            .print-btn { bottom: 16px; right: 16px; padding: 10px 16px; font-size: 13px; }
+            body { padding: 16px 10px; }
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .floating-nav, .print-btn, .scroll-progress { display: none; }
+            .resume-container { box-shadow: none; border-radius: 0; }
+            .job, .edu-block { opacity: 1 !important; transform: none !important; }
+            .skill-bar-fill { width: var(--target-width) !important; }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-    <div class="resume-container">
-        <div class="main-content">
-            <div class="header">
-                <h1>Neeraj Kumar</h1>
-                <h2>Full-Stack Developer</h2>
-            </div>
 
-            <div class="profile-summary">
-                <p>Experienced Full-Stack Developer with a strong background in developing and deploying scalable web applications. Proficient in MERN stack technologies (MongoDB, Express.js, React.js, Node.js) and well-versed in creating robust APIs and dynamic user interfaces. Successfully delivered end-to-end solutions, from conceptualizing products to backend development and API integrations. Known for developing complex logistics platforms and third-party integrations, including carbon emission calculations and duty management systems. A proactive problem-solver with a keen interest in web development, committed to delivering high-quality software solutions.</p>
-            </div>
+<div class="scroll-progress" id="scrollProgress"></div>
 
-            <div class="section-title">
-                <i class="fas fa-briefcase"></i>
-                <h3>WORK EXPERIENCE</h3>
-            </div>
+<nav class="floating-nav" id="floatingNav">
+    <div class="nav-dot active" data-section="header"><span class="nav-label">Top</span></div>
+    <div class="nav-dot" data-section="experience"><span class="nav-label">Experience</span></div>
+    <div class="nav-dot" data-section="education"><span class="nav-label">Education</span></div>
+</nav>
 
-            <!-- NEW: IBOTIX job added from updated PDF -->
-            <div class="job">
-                <div class="job-title">Full Stack Developer</div>
-                <div class="company">
-                    <span class="company-name">IBOTIX, Greater Noida</span>
-                    <span class="date">July 2025 – Present</span>
-                </div>
-                <ul>
-                    <li><span class="project-title">Ibotix Hire Platform</span> – Working as a full-stack developer on the Ibotix Hire platform, an advanced AI-based hiring system where candidates take AI-driven interviews and HRs access a comprehensive pool of qualified candidates.</li>
-                    <li>Implemented the entire frontend architecture using React.js and Redux for state management, ensuring seamless real-time data updates through WebSockets.</li>
-                    <li>Designed and optimized the interview experience flow for candidates, integrating automated scoring and result visualization dashboards.</li>
-                    <li>Contributed to scalable UI components, data synchronization logic, and efficient state handling for both candidate and HR modules.</li>
-                    <li><span class="project-title">Skills</span> – React.js, Redux, WebSockets, Full-Stack Development, Real-Time Applications</li>
-                </ul>
-            </div>
+<button class="print-btn" onclick="window.print()">
+    <i class="fas fa-download"></i> Save PDF
+</button>
 
-            <div class="job">
-                <div class="job-title">Software Developer</div>
-                <div class="company">
-                    <span class="company-name">Aristia AI, Gurugram</span>
-                    <span class="date">November 2024 – June 2025</span>
-                </div>
-                <ul>
-                    <li><span class="project-title">Cognilink Website Development</span> - Solely developed both the front-end and back-end of the Cognilink platform, a data analytics tool where users can upload documents, audio files, images, and web URLs. The platform stores these in a MySQL database and utilizes Azure Vector DB to perform searches and answer queries based on the stored data using LangChain and LLM. This solution is aimed at enhancing data analytics capabilities for businesses.</li>
-                    <li><span class="project-title">Dailymed Chatbot Development</span> - Built the Dailymed chatbot from scratch, including both the front-end (React.js) and back-end (Node.js). The bot scrapes data from the Dailymed website and stores it in a MySQL database, using LLM to answer user queries based solely on Dailymed data. This project improves accessibility to medical information and automates the information retrieval process.</li>
-                    <li><span class="project-title">Skills</span> – React.js, Node.js, LangChain, LLM, MySQL, Azure Vector DB, Full-Stack Development, Data Analytics</li>
-                </ul>
-            </div>
+<div class="resume-container">
 
-            <div class="job">
-                <div class="job-title">Software Developer</div>
-                <div class="company">
-                    <span class="company-name">AAA2 Innovate Pvt. Ltd, Noida</span>
-                    <span class="date">July 2023 – August 2024</span>
-                </div>
-                <ul>
-                    <li>AAA2 Innovate Pvt. Ltd is the Parent company of Zipaworld. AAA2 handles all the software projects while Zipaworld is a multimodel digital logistics and freight forwarding product that offers all logistics services (Air, Ocean, Courier) from a single window.</li>
-                    <li><span class="project-title">Main Product Development</span> (<a href="https://zipaworld.com/" target="_blank">zipaworld.com</a>) - Solely developed a cutting-edge multimodal logistics platform from scratch in React.js Functional components with features for:
-                        <ul class="nested-list">
-                            <li>Crate queries and booking creation</li>
-                            <li>Tracking integration</li>
-                            <li>Automatic checklist generation</li>
-                            <li>Logistics chatbot (EximGPT)</li>
-                            <li>Coupon systems and invoicing</li>
-                        </ul>
-                    </li>
-                    <li><span class="project-title">Backend Development</span> (Node.js, Express, MongoDB):
-                        <ul class="nested-list">
-                            <li>Developed API for EximGPT</li>
-                            <li>API of Zipaworld services for integration in ICICI website Logistics services section</li>
-                            <li>Checklist maker API and Store Data</li>
-                            <li>Carbon emission calculation API with self-developed formula using data from Aircrafts used and Airlines website</li>
-                            <li>Integration with Bludart API</li>
-                            <li>Tracking API using Parcel APP</li>
-                            <li>Duty Calculation for EximGPT of USA (from creating data to calculation based on HSN codes)</li>
-                            <li>Complete code documentation for developers of all Air, Ocean, Road, and Courier backend APIs</li>
-                        </ul>
-                    </li>
-                    <li><span class="project-title">Admin Side Development</span> - Developed the admin panel for Zipaworld, implementing essential backend services. Integrated Third Party APIs including Ulip, GST, Aadhar, Shipments Tracking, and Containers Tracking Features.</li>
-                    <li><span class="project-title">Third Party Project</span> - Skincraft 2D Almirah Decor (<a href="https://skincraft-decor.netlify.app/" target="_blank">skincraft2d Almirah Decor</a>)
-                        <ul class="nested-list">
-                            <li>Solely developed from scratch both frontend and backend in MERN stack</li>
-                            <li>Features: Login, signup, create new project, save project, admin dashboard, reload and update project</li>
-                            <li>Image Decoration on Almirah doors: uploading, cutting, and storing images</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+    <!-- ══ MAIN CONTENT ══ -->
+    <div class="main-content">
 
-            <div class="section-title">
-                <i class="fas fa-graduation-cap"></i>
-                <h3>EDUCATION AND TRAINING</h3>
-            </div>
+        <div class="header" id="header">
+            <h1>Neeraj Kumar</h1>
+            <h2 id="typed-title"><span class="cursor"></span></h2>
+        </div>
 
-            <div>
-                <div class="job-title">MERN Fullstack Course</div>
-                <div class="company">
-                    <span class="company-name">Croma Campus Pvt. Ltd, Noida</span>
-                    <span class="date">December 2022 – July 2023</span>
-                </div>
-                <ul>
-                    <li><span class="project-title">Projects Developed</span>
-                        <ul class="nested-list">
-                            <li><a href="https://organicfoodwebsitebynkb.netlify.app/" target="_blank">Organic food website</a> using Bootstrap</li>
-                            <li><a href="https://formvalidationbynkb.netlify.app/" target="_blank">Form Validation</a> in JavaScript</li>
-                            <li><a href="https://nkbfirstproject.netlify.app/" target="_blank">Single page simple Website</a> using HTML and CSS only</li>
-                            <li><a href="https://blackjackgamebynkb.vercel.app/" target="_blank">Blackjack game</a> using JavaScript</li>
-                            <li><a href="https://bmicalculatorbynkb.vercel.app/" target="_blank">BMI calculator</a> in JavaScript</li>
-                            <li><a href="https://counterappbynkb.vercel.app/" target="_blank">Counter App</a> in JavaScript</li>
-                            <li><a href="https://rockybhaibirthdaygift.vercel.app/" target="_blank">Birthday Celebration website</a> using HTML and CSS only</li>
-                        </ul>
-                    </li>
-                </ul>
-                <p style="margin-top: 15px;"><span class="project-title">Graduation</span> - BTech from CDLU</p>
-                <p style="margin-top: 5px;"><span class="project-title">10th and 12th</span> - Army Public School</p>
+        <div class="profile-summary reveal">
+            <p>Experienced Full-Stack Developer with a strong background in developing and deploying scalable web applications. Proficient in MERN stack technologies (MongoDB, Express.js, React.js, Node.js) and well-versed in creating robust APIs and dynamic user interfaces. Successfully delivered end-to-end solutions, from conceptualizing products to backend development and API integrations. Known for developing complex logistics platforms and third-party integrations, including carbon emission calculations and duty management systems. A proactive problem-solver with a keen interest in web development, committed to delivering high-quality software solutions.</p>
+        </div>
+
+        <div class="section-title reveal" id="experience">
+            <i class="fas fa-briefcase"></i>
+            <h3>Work Experience</h3>
+        </div>
+
+        <div class="job" style="animation-delay: 0.05s">
+            <div class="job-title">Full Stack Developer</div>
+            <div class="company">
+                <span class="company-name">IBOTIX, Greater Noida</span>
+                <span class="date current">July 2025 – Present</span>
+            </div>
+            <ul>
+                <li><span class="project-title">Ibotix Hire Platform</span> – Working as a full-stack developer on an advanced AI-based hiring system where candidates take AI-driven interviews and HRs access a comprehensive pool of qualified candidates.</li>
+                <li>Implemented the entire frontend architecture using React.js and Redux for state management, ensuring seamless real-time data updates through WebSockets.</li>
+                <li>Designed and optimized the interview experience flow for candidates, integrating automated scoring and result visualization dashboards.</li>
+                <li>Contributed to scalable UI components, data synchronization logic, and efficient state handling for both candidate and HR modules.</li>
+                <li><span class="project-title">Skills</span> – React.js, Redux, WebSockets, Full-Stack Development, Real-Time Applications</li>
+            </ul>
+        </div>
+
+        <div class="job" style="animation-delay: 0.1s">
+            <div class="job-title">Software Developer</div>
+            <div class="company">
+                <span class="company-name">Aristia AI, Gurugram</span>
+                <span class="date">Nov 2024 – Jun 2025</span>
+            </div>
+            <ul>
+                <li><span class="project-title">Cognilink Website Development</span> – Solely developed both front-end and back-end of the Cognilink platform, a data analytics tool where users upload documents, audio files, images, and web URLs. Platform stores these in MySQL and utilizes Azure Vector DB to perform searches using LangChain and LLM.</li>
+                <li><span class="project-title">Dailymed Chatbot Development</span> – Built the Dailymed chatbot from scratch (React.js frontend, Node.js backend). The bot scrapes Dailymed and uses LLM to answer user queries, improving accessibility to medical information.</li>
+                <li><span class="project-title">Skills</span> – React.js, Node.js, LangChain, LLM, MySQL, Azure Vector DB, Data Analytics</li>
+            </ul>
+        </div>
+
+        <div class="job" style="animation-delay: 0.15s">
+            <div class="job-title">Software Developer</div>
+            <div class="company">
+                <span class="company-name">AAA2 Innovate Pvt. Ltd, Noida</span>
+                <span class="date">Jul 2023 – Aug 2024</span>
+            </div>
+            <ul>
+                <li>AAA2 Innovate is the parent company of Zipaworld — a multimodal digital logistics and freight forwarding platform offering Air, Ocean, and Courier services from a single window.</li>
+                <li><span class="project-title">Main Product</span> (<a href="https://zipaworld.com/" target="_blank">zipaworld.com</a>) – Solely built the platform from scratch in React.js with query/booking creation, tracking integration, automatic checklist generation, logistics chatbot (EximGPT), coupon systems and invoicing.</li>
+                <li><span class="project-title">Backend</span> (Node.js, Express, MongoDB) – EximGPT API, ICICI integration, carbon emission calculation API, Bluedart API, Parcel APP tracking, USA duty calculation via HSN codes, and full API documentation for Air, Ocean, Road & Courier services.</li>
+                <li><span class="project-title">Admin Panel</span> – Developed the admin panel with third-party API integrations: Ulip, GST, Aadhar, Shipments & Containers Tracking.</li>
+                <li><span class="project-title">Third Party Project</span> – Skincraft 2D Almirah Decor (<a href="https://skincraft-decor.netlify.app/" target="_blank">skincraft-decor.netlify.app</a>) – Full MERN stack from scratch: login/signup, project save/reload, admin dashboard, image decoration on almirah doors.</li>
+            </ul>
+        </div>
+
+        <div class="section-title reveal" id="education">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Education & Training</h3>
+        </div>
+
+        <div class="edu-block reveal">
+            <div class="job-title">MERN Fullstack Course</div>
+            <div class="company">
+                <span class="company-name">Croma Campus Pvt. Ltd, Noida</span>
+                <span class="date">Dec 2022 – Jul 2023</span>
+            </div>
+            <ul>
+                <li><span class="project-title">Projects:</span>
+                    <ul class="nested-list">
+                        <li><a href="https://organicfoodwebsitebynkb.netlify.app/" target="_blank">Organic food website</a> · <a href="https://blackjackgamebynkb.vercel.app/" target="_blank">Blackjack game</a> · <a href="https://bmicalculatorbynkb.vercel.app/" target="_blank">BMI calculator</a> · <a href="https://counterappbynkb.vercel.app/" target="_blank">Counter App</a> · <a href="https://formvalidationbynkb.netlify.app/" target="_blank">Form Validation</a> · <a href="https://nkbfirstproject.netlify.app/" target="_blank">Single-page site</a> · <a href="https://rockybhaibirthdaygift.vercel.app/" target="_blank">Birthday site</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <p style="margin-top: 12px; font-size: 0.9em; color: #555;"><span class="project-title">Graduation</span> – B.Tech from CDLU &nbsp;|&nbsp; <span class="project-title">10th & 12th</span> – Army Public School</p>
+        </div>
+
+    </div><!-- /main-content -->
+
+    <!-- ══ SIDEBAR ══ -->
+    <div class="sidebar">
+
+        <div class="contact-info">
+            <div class="contact-item" style="animation-delay:0.1s">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:nkb.coder@gmail.com">nkb.coder@gmail.com</a>
+            </div>
+            <div class="contact-item" style="animation-delay:0.15s">
+                <i class="fas fa-phone"></i>
+                <a href="tel:+917988786696">+91 79887 86696</a>
+            </div>
+            <div class="contact-item" style="animation-delay:0.2s">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Gurugram, India</span>
+            </div>
+            <div class="contact-item" style="animation-delay:0.25s">
+                <i class="fab fa-linkedin"></i>
+                <a href="https://www.linkedin.com/in/codernkb/" target="_blank">linkedin.com/in/codernkb</a>
+            </div>
+            <div class="contact-item" style="animation-delay:0.3s">
+                <i class="fab fa-github"></i>
+                <a href="https://github.com/codernkb/" target="_blank">github.com/codernkb</a>
             </div>
         </div>
 
-        <div class="sidebar">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:nkb.coder@gmail.com">nkb.coder@gmail.com</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <a href="tel:+917988786696">7988786696</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Gurugram, India</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-linkedin"></i>
-                    <a href="https://www.linkedin.com/in/codernkb/" target="_blank">Linkedin Profile</a>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-github"></i>
-                    <a href="https://github.com/codernkb/" target="_blank">Github Profile</a>
-                </div>
-            </div>
+        <div class="sidebar-title">
+            <i class="fas fa-chart-bar"></i>
+            <h3>Core Skills</h3>
+        </div>
 
-            <div class="sidebar-title">
-                <i class="fas fa-tools"></i>
-                <h3>AREAS OF EXPERTISE</h3>
+        <div class="skill-bar-wrap">
+            <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>React.js</span><span>95%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
             </div>
-
-            <div>
-                <div class="skill-tag">React.js</div>
-                <div class="skill-tag">Node.js</div>
-                <div class="skill-tag">Express.js</div>
-                <div class="skill-tag">MongoDB</div>
-                <div class="skill-tag">REST API</div>
-                <div class="skill-tag">Redux</div>
-                <div class="skill-tag">WebSockets</div>
-                <div class="skill-tag">HTML5</div>
-                <div class="skill-tag">CSS3</div>
-                <div class="skill-tag">JavaScript</div>
-                <div class="skill-tag">Bootstrap</div>
-                <div class="skill-tag">MySQL</div>
-                <div class="skill-tag">Azure Vector DB</div>
-                <div class="skill-tag">LangChain</div>
-                <div class="skill-tag">LLM</div>
+            <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>Node.js / Express</span><span>90%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
             </div>
-
-            <div class="sidebar-title">
-                <i class="fas fa-cogs"></i>
-                <h3>TECHNICAL SKILLS</h3>
+            <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>MongoDB / MySQL</span><span>85%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
             </div>
-
-            <div>
-                <div class="skill-tag">Full-stack Development</div>
-                <div class="skill-tag">Web Applications</div>
-                <div class="skill-tag">Backend Development</div>
-                <div class="skill-tag">Real-Time Applications</div>
-                <div class="skill-tag">Postman</div>
-                <div class="skill-tag">Swagger UI</div>
-                <div class="skill-tag">LaTeX</div>
-                <div class="skill-tag">VS Code</div>
-                <div class="skill-tag">GitHub</div>
-                <div class="skill-tag">GitLab</div>
+            <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>Redux / WebSockets</span><span>85%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
             </div>
-
-            <div class="sidebar-title">
-                <i class="fas fa-project-diagram"></i>
-                <h3>INTERESTS</h3>
+            <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>LangChain / LLM</span><span>78%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
             </div>
-
-            <div>
-                <div class="skill-tag">Web Development</div>
-                <div class="skill-tag">API Integration</div>
-                <div class="skill-tag">Cloud Solutions</div>
+            <div class="skill-bar-item">
+                <div class="skill-bar-label"><span>JavaScript (ES6+)</span><span>92%</span></div>
+                <div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div>
             </div>
         </div>
-    </div>
+
+        <div class="sidebar-title">
+            <i class="fas fa-tools"></i>
+            <h3>Technologies</h3>
+        </div>
+
+        <div class="skills-wrap">
+            <span class="skill-tag">React.js</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Express.js</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">REST API</span>
+            <span class="skill-tag">Redux</span>
+            <span class="skill-tag">WebSockets</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Bootstrap</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">Azure Vector DB</span>
+            <span class="skill-tag">LangChain</span>
+            <span class="skill-tag">LLM</span>
+        </div>
+
+        <div class="sidebar-title">
+            <i class="fas fa-cogs"></i>
+            <h3>Tools</h3>
+        </div>
+
+        <div class="skills-wrap">
+            <span class="skill-tag">Postman</span>
+            <span class="skill-tag">Swagger UI</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">GitLab</span>
+            <span class="skill-tag">LaTeX</span>
+            <span class="skill-tag">Real-Time Apps</span>
+            <span class="skill-tag">Full-Stack Dev</span>
+        </div>
+
+        <div class="sidebar-title">
+            <i class="fas fa-star"></i>
+            <h3>Interests</h3>
+        </div>
+
+        <div class="skills-wrap">
+            <span class="skill-tag">Web Development</span>
+            <span class="skill-tag">API Integration</span>
+            <span class="skill-tag">Cloud Solutions</span>
+            <span class="skill-tag">AI / LLM Apps</span>
+        </div>
+
+    </div><!-- /sidebar -->
+
+</div><!-- /resume-container -->
+
+<script>
+/* ── Typing animation ── */
+const titles = ['Full-Stack Developer', 'MERN Stack Engineer', 'React.js Specialist', 'API Integration Expert'];
+let ti = 0, ci = 0, deleting = false;
+const el = document.getElementById('typed-title');
+
+function type() {
+    const word = titles[ti];
+    if (!deleting) {
+        ci++;
+        el.innerHTML = word.slice(0, ci) + '<span class="cursor"></span>';
+        if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+        ci--;
+        el.innerHTML = word.slice(0, ci) + '<span class="cursor"></span>';
+        if (ci === 0) { deleting = false; ti = (ti + 1) % titles.length; }
+    }
+    setTimeout(type, deleting ? 60 : 90);
+}
+setTimeout(type, 900);
+
+/* ── Scroll progress bar ── */
+window.addEventListener('scroll', () => {
+    const p = document.getElementById('scrollProgress');
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    p.style.width = total > 0 ? (window.scrollY / total * 100) + '%' : '0%';
+});
+
+/* ── Intersection observer for reveal ── */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.job, .edu-block, .reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+    observer.observe(el);
+});
+
+/* ── Skill bar animation on load ── */
+function animateBars() {
+    document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        const w = bar.getAttribute('data-width');
+        bar.style.setProperty('--target-width', w + '%');
+        bar.style.width = w + '%';
+    });
+}
+setTimeout(animateBars, 500);
+
+/* ── Floating nav active dot ── */
+const sections = { header: 0, experience: 1, education: 2 };
+const dots = document.querySelectorAll('.nav-dot');
+dots.forEach(d => {
+    d.addEventListener('click', () => {
+        const sec = document.getElementById(d.dataset.section);
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+const sectionEls = ['header','experience','education'].map(id => document.getElementById(id));
+window.addEventListener('scroll', () => {
+    let current = 0;
+    sectionEls.forEach((s, i) => {
+        if (s && s.getBoundingClientRect().top < 200) current = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+});
+</script>
 </body>
 </html>
