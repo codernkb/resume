@@ -469,13 +469,7 @@
             body { padding: 16px 10px; }
         }
 
-        @media print {
-            body { background: white; padding: 0; }
-            .floating-nav, .print-btn, .scroll-progress { display: none; }
-            .resume-container { box-shadow: none; border-radius: 0; }
-            .job, .edu-block { opacity: 1 !important; transform: none !important; }
-            .skill-bar-fill { width: var(--target-width) !important; }
-        }
+
     </style>
 </head>
 <body>
@@ -488,8 +482,8 @@
     <div class="nav-dot" data-section="education"><span class="nav-label">Education</span></div>
 </nav>
 
-<button class="print-btn" onclick="window.print()">
-    <i class="fas fa-download"></i> Save PDF
+<button class="print-btn" id="savePdfBtn" onclick="savePDF()">
+    <i class="fas fa-download"></i> <span id="saveBtnText">Save PDF</span>
 </button>
 
 <div class="resume-container">
@@ -761,6 +755,74 @@ window.addEventListener('scroll', () => {
     });
     dots.forEach((d, i) => d.classList.toggle('active', i === current));
 });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+async function savePDF() {
+    const btn = document.getElementById('savePdfBtn');
+    const btnText = document.getElementById('saveBtnText');
+    const icon = btn.querySelector('i');
+
+    /* Show loading state */
+    btn.disabled = true;
+    btn.style.opacity = '0.75';
+    btnText.textContent = 'Generating...';
+    icon.className = 'fas fa-spinner fa-spin';
+
+    /* Hide UI-only elements from capture */
+    const hide = [
+        document.getElementById('scrollProgress'),
+        document.querySelector('.floating-nav'),
+        btn
+    ];
+    hide.forEach(el => { if (el) el.style.visibility = 'hidden'; });
+
+    try {
+        const target = document.querySelector('.resume-container');
+
+        const canvas = await html2canvas(target, {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff'
+        });
+
+        const { jsPDF } = window.jspdf;
+        const imgData = canvas.toDataURL('image/jpeg', 0.97);
+
+        /* A4 dimensions in mm */
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageW = pdf.internal.pageSize.getWidth();
+        const pageH = pdf.internal.pageSize.getHeight();
+
+        /* Scale image to fit A4 width, allow multi-page if tall */
+        const imgW = pageW;
+        const imgH = (canvas.height * pageW) / canvas.width;
+
+        let yPos = 0;
+        let remaining = imgH;
+
+        while (remaining > 0) {
+            pdf.addImage(imgData, 'JPEG', 0, yPos === 0 ? 0 : -(imgH - remaining), imgW, imgH);
+            remaining -= pageH;
+            if (remaining > 0) { pdf.addPage(); yPos -= pageH; }
+        }
+
+        pdf.save('Neeraj_Kumar_Resume.pdf');
+    } catch (err) {
+        alert('Could not generate PDF. Please try again.');
+        console.error(err);
+    } finally {
+        /* Restore everything */
+        hide.forEach(el => { if (el) el.style.visibility = ''; });
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btnText.textContent = 'Save PDF';
+        icon.className = 'fas fa-download';
+    }
+}
 </script>
 </body>
 </html>
