@@ -779,43 +779,107 @@ async function savePDF() {
     ];
     hide.forEach(el => { if (el) el.style.visibility = 'hidden'; });
 
+    /* Inject a capture-mode stylesheet that kills all effects html2canvas can't handle */
+    const captureStyle = document.createElement('style');
+    captureStyle.id = 'capture-overrides';
+    captureStyle.textContent = `
+        *, *::before, *::after {
+            animation: none !important;
+            transition: none !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        .resume-container {
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        .job, .edu-block, .reveal {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+        .sidebar {
+            background: #C4925A !important;
+        }
+        .contact-item i, .skill-tag {
+            background: rgba(255,255,255,0.22) !important;
+        }
+        .date.current {
+            box-shadow: none !important;
+        }
+        .header h1 {
+            background: none !important;
+            -webkit-text-fill-color: #b8834a !important;
+            color: #b8834a !important;
+        }
+        .profile-summary {
+            background: #fdf8f2 !important;
+        }
+        .job {
+            background: #fafafa !important;
+        }
+    `;
+    document.head.appendChild(captureStyle);
+
+    /* Force all skill bars to their target width instantly */
+    document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.transition = 'none';
+        bar.style.width = bar.getAttribute('data-width') + '%';
+    });
+
+    /* Let the DOM repaint with overrides applied */
+    await new Promise(r => setTimeout(r, 120));
+
     try {
         const target = document.querySelector('.resume-container');
+        const rect = target.getBoundingClientRect();
 
         const canvas = await html2canvas(target, {
-            scale: 2,
+            scale: 3,
             useCORS: true,
+            allowTaint: true,
             logging: false,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff',
+            width: rect.width,
+            height: rect.height,
+            windowWidth: document.documentElement.scrollWidth,
+            windowHeight: document.documentElement.scrollHeight,
+            x: rect.left + window.scrollX,
+            y: rect.top + window.scrollY
         });
 
         const { jsPDF } = window.jspdf;
-        const imgData = canvas.toDataURL('image/jpeg', 0.97);
 
-        /* A4 dimensions in mm */
-        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-        const pageW = pdf.internal.pageSize.getWidth();
-        const pageH = pdf.internal.pageSize.getHeight();
+        /* Use the actual resume aspect ratio — not forced A4 which causes blank pages */
+        const pxW = canvas.width;
+        const pxH = canvas.height;
+        const mmW = 210; /* A4 width */
+        const mmH = Math.round((pxH / pxW) * mmW);
 
-        /* Scale image to fit A4 width, allow multi-page if tall */
-        const imgW = pageW;
-        const imgH = (canvas.height * pageW) / canvas.width;
+        const pdf = new jsPDF({
+            orientation: mmH > mmW ? 'portrait' : 'landscape',
+            unit: 'mm',
+            format: [mmW, mmH]
+        });
 
-        let yPos = 0;
-        let remaining = imgH;
-
-        while (remaining > 0) {
-            pdf.addImage(imgData, 'JPEG', 0, yPos === 0 ? 0 : -(imgH - remaining), imgW, imgH);
-            remaining -= pageH;
-            if (remaining > 0) { pdf.addPage(); yPos -= pageH; }
-        }
-
+        const imgData = canvas.toDataURL('image/png');
+        pdf.addImage(imgData, 'PNG', 0, 0, mmW, mmH, '', 'FAST');
         pdf.save('Neeraj_Kumar_Resume.pdf');
+
     } catch (err) {
         alert('Could not generate PDF. Please try again.');
         console.error(err);
     } finally {
-        /* Restore everything */
+        /* Remove capture overrides and restore everything */
+        const s = document.getElementById('capture-overrides');
+        if (s) s.remove();
+
+        /* Re-animate skill bars */
+        document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+            bar.style.transition = 'width 1.2s cubic-bezier(0.22,1,0.36,1)';
+        });
+
         hide.forEach(el => { if (el) el.style.visibility = ''; });
         btn.disabled = false;
         btn.style.opacity = '1';
